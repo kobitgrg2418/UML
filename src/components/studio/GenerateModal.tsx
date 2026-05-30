@@ -33,7 +33,7 @@ export default function GenerateModal({ onClose, onSubmit, prompt }: GenerateMod
       onClick={onClose}
     >
       <div
-        className="glass-strong w-[520px] rounded-xl overflow-hidden"
+        className="glass-strong w-full max-w-[520px] mx-4 max-h-[90vh] overflow-y-auto rounded-xl overflow-hidden"
         style={{ boxShadow: "0 1px 0 rgba(255,255,255,0.06) inset, 0 32px 80px rgba(0,0,0,0.6)" }}
         onClick={(e) => e.stopPropagation()}
       >
@@ -76,8 +76,8 @@ export default function GenerateModal({ onClose, onSubmit, prompt }: GenerateMod
           </div>
         </div>
 
-        <div className="flex items-center gap-3 px-5 py-4 border-t border-border">
-          <span className="text-xs text-fg-mute">5 diagrams will be generated</span>
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 px-4 sm:px-5 py-4 border-t border-border">
+          <span className="text-xs text-fg-mute hidden sm:inline">5 diagrams will be generated</span>
           <span className="flex-1" />
           <button onClick={onClose} className="px-4 py-2 rounded-lg bg-bg-3 border border-border text-sm text-fg-dim cursor-pointer hover:text-fg">
             Cancel

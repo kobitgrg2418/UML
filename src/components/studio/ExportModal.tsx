@@ -43,7 +43,7 @@ export default function ExportModal({ onClose, code }: ExportModalProps) {
       onClick={onClose}
     >
       <div
-        className="glass-strong w-[440px] rounded-xl overflow-hidden"
+        className="glass-strong w-full max-w-[440px] mx-4 max-h-[90vh] overflow-y-auto rounded-xl overflow-hidden"
         style={{ boxShadow: "0 1px 0 rgba(255,255,255,0.06) inset, 0 32px 80px rgba(0,0,0,0.6)" }}
         onClick={(e) => e.stopPropagation()}
       >

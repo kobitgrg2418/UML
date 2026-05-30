@@ -1,11 +1,15 @@
 "use client";
 
+import { useState } from "react";
+import { useSession } from "next-auth/react";
 import { Logo, Sparkles, Grid, History, Folder, Users, Chat, Settings } from "@/components/ui/Icons";
+import UserMenu from "./UserMenu";
 
 interface ActivityBarProps {
   section: string;
   setSection: (s: string) => void;
   onHome: () => void;
+  onOpenSettings: () => void;
 }
 
 const NAV_ITEMS = [
@@ -16,9 +20,16 @@ const NAV_ITEMS = [
   { key: "team", Icon: Users, label: "Team" },
 ];
 
-export default function ActivityBar({ section, setSection, onHome }: ActivityBarProps) {
+export default function ActivityBar({ section, setSection, onHome, onOpenSettings }: ActivityBarProps) {
+  const { data: session } = useSession();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const userName = session?.user?.name || "";
+  const userEmail = session?.user?.email || "";
+  const initial = (userName || userEmail || "U")[0].toUpperCase();
+
   return (
-    <div className="w-12 shrink-0 flex flex-col border-r border-border bg-bg-1">
+    <div className="w-12 shrink-0 hidden md:flex flex-col border-r border-border bg-bg-1 relative">
       <div className="h-12 flex items-center justify-center border-b border-border">
         <button
           onClick={onHome}
@@ -58,14 +69,28 @@ export default function ActivityBar({ section, setSection, onHome }: ActivityBar
         </button>
         <button
           title="Settings"
+          onClick={onOpenSettings}
           className="h-9 rounded-md border-0 bg-transparent text-fg-mute flex items-center justify-center cursor-pointer hover:text-fg-dim"
         >
           <Settings size={15} />
         </button>
-        <div className="w-[30px] h-[30px] rounded-md mx-auto mt-2 mb-1 bg-gradient-to-br from-accent-2 to-c-purple text-[11px] font-semibold text-bg flex items-center justify-center">
-          U
-        </div>
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="w-[30px] h-[30px] rounded-md mx-auto mt-2 mb-1 bg-gradient-to-br from-accent-2 to-c-purple text-[11px] font-semibold text-bg flex items-center justify-center cursor-pointer border-0 hover:ring-2 hover:ring-accent/40 transition-all"
+          title="Account"
+        >
+          {initial}
+        </button>
       </div>
+
+      {menuOpen && (
+        <UserMenu
+          name={userName}
+          email={userEmail}
+          onClose={() => setMenuOpen(false)}
+          onOpenSettings={onOpenSettings}
+        />
+      )}
     </div>
   );
 }

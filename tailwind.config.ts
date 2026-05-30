@@ -43,6 +43,7 @@ const config: Config = {
         shimmer: "shimmer 1.8s linear infinite",
         pulse: "pulse 1.2s ease-in-out infinite",
         "slide-up": "slideUp 300ms ease",
+        "slide-in-left": "slideInLeft 200ms ease",
       },
       keyframes: {
         fadeIn: {
@@ -56,6 +57,10 @@ const config: Config = {
         slideUp: {
           "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        slideInLeft: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
         },
       },
     },

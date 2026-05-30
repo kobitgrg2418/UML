@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import {
   Logo, Sparkles, ArrowRight, Zap, Shield, Code, Box, GitBranch, Database,
-  Workflow, Users, Terminal, Globe,
+  Workflow, Users, Terminal, Globe, Menu, X,
 } from "@/components/ui/Icons";
 
 const FEATURES = [
@@ -50,12 +51,13 @@ const DIAGRAM_TYPES = [
 
 export default function LandingPage() {
   const { data: session } = useSession();
+  const [mobileNav, setMobileNav] = useState(false);
 
   return (
     <div className="min-h-screen bg-bg">
       {/* Nav */}
       <nav className="fixed top-0 left-0 right-0 z-50 glass-strong">
-        <div className="max-w-6xl mx-auto flex items-center h-14 px-6 gap-8">
+        <div className="max-w-6xl mx-auto flex items-center h-14 px-4 sm:px-6 gap-4 sm:gap-8">
           <Link href="/" className="flex items-center gap-2.5 text-fg font-semibold">
             <Logo size={22} />
             <span>Schemata</span>
@@ -72,27 +74,44 @@ export default function LandingPage() {
                 href="/studio"
                 className="btn-blue px-4 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2"
               >
-                Open Studio <ArrowRight size={14} />
+                <span className="hidden sm:inline">Open Studio</span>
+                <span className="sm:hidden">Studio</span>
+                <ArrowRight size={14} />
               </Link>
             ) : (
               <>
-                <Link href="/auth/signin" className="text-sm text-fg-dim hover:text-fg transition-colors">
+                <Link href="/auth/signin" className="hidden sm:inline text-sm text-fg-dim hover:text-fg transition-colors">
                   Sign in
                 </Link>
                 <Link
                   href="/auth/signin"
                   className="btn-blue px-4 py-1.5 rounded-lg text-sm font-medium flex items-center gap-2"
                 >
-                  Get started <ArrowRight size={14} />
+                  <span className="hidden sm:inline">Get started</span>
+                  <span className="sm:hidden">Start</span>
+                  <ArrowRight size={14} />
                 </Link>
               </>
             )}
           </div>
+          <button
+            onClick={() => setMobileNav(!mobileNav)}
+            className="md:hidden p-1.5 rounded-md bg-transparent border-0 text-fg-dim cursor-pointer hover:text-fg"
+          >
+            {mobileNav ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
+        {mobileNav && (
+          <div className="md:hidden border-t border-border px-4 py-3 flex flex-col gap-1 animate-fade-in">
+            <a href="#features" onClick={() => setMobileNav(false)} className="text-fg-dim hover:text-fg text-sm py-2 px-2 rounded-md hover:bg-bg-2 transition-colors">Features</a>
+            <a href="#diagrams" onClick={() => setMobileNav(false)} className="text-fg-dim hover:text-fg text-sm py-2 px-2 rounded-md hover:bg-bg-2 transition-colors">Diagrams</a>
+            <a href="#pricing" onClick={() => setMobileNav(false)} className="text-fg-dim hover:text-fg text-sm py-2 px-2 rounded-md hover:bg-bg-2 transition-colors">Pricing</a>
+          </div>
+        )}
       </nav>
 
       {/* Hero */}
-      <section className="relative pt-32 pb-20 px-6 overflow-hidden">
+      <section className="relative pt-24 sm:pt-32 pb-12 sm:pb-20 px-4 sm:px-6 overflow-hidden">
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div
             className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-20"
@@ -114,7 +133,7 @@ export default function LandingPage() {
             <span>AI-powered system design — now in beta</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
+          <h1 className="text-3xl sm:text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-[1.1]">
             <span className="text-fg">Diagrams from</span>
             <br />
             <span
@@ -127,7 +146,7 @@ export default function LandingPage() {
             </span>
           </h1>
 
-          <p className="text-lg md:text-xl text-fg-dim max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-fg-dim max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed">
             Describe your architecture, data model, or workflow in natural language.
             Schemata generates five production-ready UML diagrams instantly.
           </p>
@@ -188,17 +207,17 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section id="features" className="py-24 px-6">
+      <section id="features" className="py-16 sm:py-24 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="text-center mb-10 sm:mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
               Everything you need to design systems
             </h2>
             <p className="text-fg-dim text-lg max-w-xl mx-auto">
               A complete workspace for architects, developers, and teams who think in diagrams.
             </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
             {FEATURES.map((f) => (
               <div key={f.title} className="card p-6 group">
                 <div className="w-10 h-10 rounded-lg bg-accent-glow border border-accent/20 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -213,9 +232,9 @@ export default function LandingPage() {
       </section>
 
       {/* Diagram types */}
-      <section id="diagrams" className="py-24 px-6 border-t border-border">
+      <section id="diagrams" className="py-16 sm:py-24 px-4 sm:px-6 border-t border-border">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Five diagrams, one prompt</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Five diagrams, one prompt</h2>
           <p className="text-fg-dim text-lg mb-12">
             Every perspective of your system, generated simultaneously.
           </p>
@@ -223,7 +242,7 @@ export default function LandingPage() {
             {DIAGRAM_TYPES.map((d) => (
               <div
                 key={d.label}
-                className="card px-6 py-5 flex flex-col items-center gap-3 min-w-[140px] group cursor-default"
+                className="card px-5 sm:px-6 py-4 sm:py-5 flex flex-col items-center gap-3 min-w-[110px] sm:min-w-[140px] group cursor-default"
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110"
@@ -239,9 +258,9 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 border-t border-border">
+      <section className="py-16 sm:py-24 px-4 sm:px-6 border-t border-border">
         <div className="max-w-2xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to start designing?</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Ready to start designing?</h2>
           <p className="text-fg-dim text-lg mb-8">
             Join developers who are already generating system diagrams with AI.
           </p>
@@ -256,7 +275,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border py-8 px-6">
+      <footer className="border-t border-border py-8 px-4 sm:px-6">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-fg-mute">
           <div className="flex items-center gap-2">
             <Logo size={16} />

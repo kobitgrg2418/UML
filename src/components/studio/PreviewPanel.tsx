@@ -40,7 +40,7 @@ export default function PreviewPanel({ code, generating, diagramType }: PreviewP
       </div>
 
       {/* Zoom toolbar */}
-      <div className="absolute right-4 bottom-4 flex bg-bg-2 border border-border rounded-md overflow-hidden">
+      <div className="absolute right-2 sm:right-4 bottom-2 sm:bottom-4 flex bg-bg-2 border border-border rounded-md overflow-hidden">
         <button
           className="h-[26px] px-2 bg-transparent border-0 border-r border-border text-fg-mute text-sm cursor-pointer hover:bg-bg-3"
           onClick={() => setZoom(Math.max(40, zoom - 10))}
@@ -65,7 +65,7 @@ export default function PreviewPanel({ code, generating, diagramType }: PreviewP
       </div>
 
       {/* Keyboard hint */}
-      <div className="absolute left-4 bottom-4 flex items-center gap-1.5 px-2.5 py-1.5 bg-bg-2 border border-border rounded-md text-[10.5px] text-fg-mute">
+      <div className="absolute left-4 bottom-4 hidden md:flex items-center gap-1.5 px-2.5 py-1.5 bg-bg-2 border border-border rounded-md text-[10.5px] text-fg-mute">
         <span className="kbd text-[9px]">Space</span> pan
         <span className="text-fg-faint mx-1">·</span>
         <span className="kbd text-[9px]">⌘</span>

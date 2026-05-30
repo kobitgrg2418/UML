@@ -117,6 +117,9 @@
   .tok-num { color: #fbbf24; }
 }
 
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
 @keyframes shimmer {
   0% { background-position: 200% 0; }
   100% { background-position: -200% 0; }
@@ -130,6 +133,11 @@
 @keyframes slideUp {
   0% { opacity: 0; transform: translateY(12px); }
   100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
 }
 
 @keyframes pulse {

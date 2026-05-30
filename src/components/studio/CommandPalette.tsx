@@ -59,7 +59,7 @@ export default function CommandPalette({ onClose }: CommandPaletteProps) {
       onClick={onClose}
     >
       <div
-        className="glass-strong w-[580px] max-h-[480px] rounded-xl overflow-hidden flex flex-col"
+        className="glass-strong w-full max-w-[580px] mx-4 max-h-[80vh] sm:max-h-[480px] rounded-xl overflow-hidden flex flex-col"
         style={{ boxShadow: "0 1px 0 rgba(255,255,255,0.06) inset, 0 32px 80px rgba(0,0,0,0.6)" }}
         onClick={(e) => e.stopPropagation()}
       >
